@@ -82,6 +82,19 @@ Utilizamos el método crear usuario
 
  }
 ```
+<p>RESPUESTA 200</p>
+
+```shell
+ {
+	"status": 1,
+	"msg": "Usuario creado exitosamente!"
+}
+
+```
+<p>Finalmente, para comprobar puede iniciar sesión con el usuario creado. <br>
+Documentación del api se adjuntó en el correo electrónico.
+</p>
+
 
 
 
