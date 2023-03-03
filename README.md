@@ -41,19 +41,34 @@ Así mismo tiene un apartado en la web para mostrar el consumo del API, pero no 
 git clone https://github.com/dmarquezsv/backend_developer.git
 
 
-<P>2. Buscamos la carpeta backend_developer</P>
+<P>2. Buscamos la carpeta <b>backend_developer</b></P>
 
 
-<P>3. Una vez dentro del proyecto ejecutamos composer install</P>
+<P>3. Una vez dentro del proyecto ejecutamos <b>composer install</b></P>
 
 
-<P>4.Creamos la base de datos sql_backend_developer  Tipo utf8mb4_general_ci</P>
+<P>4.Creamos la base de datos <b>sql_backend_developer</b>  Tipo <b>utf8mb4_general_ci</b></P>
 
 
 <P>5.	Credenciales de base de datos:<br>
 a.	DB_USERNAME : root<br>
 b.	DB_PASSWORD: sin contraseña<br>
 </P>
+
+<P>6.	Luego corremos el comando <b>php artisan migrate</b></P>
+
+<P>7.	Por último, ejecutamos el proyecto <b>php artisan serve</b></P>
+
+<P>8.	Verificamos donde se ejecutando el proyecto<br>
+    a.	Starting Laravel development server: http://127.0.0.1:8000<br>
+    La cual equivale al http://localhost:8000
+</P>
+
+<p>
+9.	Creamos un usuario para comprobar si todo se encuentra en orden en insomia
+Utilizamos el método crear usuario
+</p>
+
 
 
 
