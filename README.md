@@ -10,8 +10,7 @@ Así mismo tiene un apartado en la web para mostrar el consumo del API, pero no 
 </p>
 
 <h4>Módulos implementados:</h4>
-
-<h5>Nivel Publico</h5><br>
+<h5>Nivel Publico</h5>
 <ul>   
 <li>Crear Usuarios</li>
 <li>Autenticación</li>
@@ -19,8 +18,7 @@ Así mismo tiene un apartado en la web para mostrar el consumo del API, pero no 
 <li>Restablecer Contraseña</li>
 </ul>
 
-<h5>Nivel Autenticación SACTUM</h5><br>
-
+<h5>Nivel Autenticación SACTUM</h5>
 <ul>   
 <li>Perfil de usuario</li>
 <li>Actualizar usuario</li>
