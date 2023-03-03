@@ -38,7 +38,7 @@ Así mismo tiene un apartado en la web para mostrar el consumo del API, pero no 
 </h3> 
 <br>
 <p>1. Abrir una terminal en su ordenador</p>
-git clone https://github.com/dmarquezsv/backend_developer.git
+git clone https://github.com/dmarquezsv/backend_developer.git<br>
 
 
 <P>2. Buscamos la carpeta <b>backend_developer</b></P>
