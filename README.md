@@ -10,7 +10,7 @@ Así mismo tiene un apartado en la web para mostrar el consumo del API, pero no 
 </p>
 
 <h4>Módulos implementados:</h4>
-<br><br>
+<br>
 
 <h5>Nivel Publico</h5><br>
 <ul>   
@@ -37,11 +37,11 @@ Así mismo tiene un apartado en la web para mostrar el consumo del API, pero no 
 <h3>
   🚀 Instalación proyecto
 </h3> 
-<br><br>
+<br>
 
 <p>1. Abrir una terminal en su ordenador</p>
-```shell
- 	git clone https://github.com/dmarquezsv/backend_developer.git
-```
+git clone https://github.com/dmarquezsv/backend_developer.git
+<br>
+
 
 
