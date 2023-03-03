@@ -41,8 +41,22 @@ Así mismo tiene un apartado en la web para mostrar el consumo del API, pero no 
 
 <p>1. Abrir una terminal en su ordenador</p>
 git clone https://github.com/dmarquezsv/backend_developer.git
-<br>
-<P>2.Buscamos la carpeta backend_developer</P>
+
+<br><br>
+<P>2. Buscamos la carpeta backend_developer</P>
+
+<br><br>
+<P>3. Una vez dentro del proyecto ejecutamos composer install</P>
+
+<br><br>
+<P>4.Creamos la base de datos sql_backend_developer  Tipo utf8mb4_general_ci</P>
+
+<br><br>
+<P>5.	Credenciales de base de datos:<br>
+a.	DB_USERNAME : root<br>
+b.	DB_PASSWORD: sin contraseña<br>
+</P>
+
 
 
 
