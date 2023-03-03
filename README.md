@@ -37,9 +37,9 @@ Así mismo tiene un apartado en la web para mostrar el consumo del API, pero no 
   🚀 Instalación proyecto
 </h3> 
 <br>
-<p>1. Abrir una terminal en su ordenador</p>
-git clone https://github.com/dmarquezsv/backend_developer.git<br>
-
+<p>1. Abrir una terminal en su ordenador <br>
+    git clone https://github.com/dmarquezsv/backend_developer.git
+</p>
 
 <P>2. Buscamos la carpeta <b>backend_developer</b></P>
 
@@ -68,7 +68,20 @@ b.	DB_PASSWORD: sin contraseña<br>
 9.	Creamos un usuario para comprobar si todo se encuentra en orden en insomia
 Utilizamos el método crear usuario
 </p>
+<p> POST: http://localhost:8000/api/v1/admin/users/register </p>
 
+```shell
+ { 
+    "name" : "Daniel Marquez",
+	"phone": "22114238",
+	"birthdate": "1999-02-20",
+	"username":"dmarquezsv",
+	"email":"demo@gmail.com",
+	"password":"12345678",
+	"password_confirmation":"12345678"
+
+ }
+```
 
 
 
