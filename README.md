@@ -82,7 +82,7 @@ Si todo está en orden, se debería obtener una respuesta HTTP 200 con el siguie
 }
 ```
 
-Para obtener más información sobre la documentación de la API, se puede revisar el manual adjuntado en el proyecto con la documentación adjunta.
+Para obtener más información sobre la documentación de la API, puede revisar el manual adjuntado en el proyecto como tambien la colección de consulta.
 
 
 
