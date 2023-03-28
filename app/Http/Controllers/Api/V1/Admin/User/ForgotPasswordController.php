@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Api\V1\Admin\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-// Se añade los siguientes modulos
+// Add the following modules
 use DB;
 use Illuminate\Support\Str;
-// Se añadio el tiempo
+// added time
 use Carbon\Carbon;
 // Se añadio el modelo de usuario
 use App\Models\User;
-// Se añadio el modulo envio de correo
+// Added the user model
 use Illuminate\Support\Facades\Mail;
 
-// Metodo a incriptar 
+// Method to encrypt
 use Illuminate\Support\Facades\Hash;
 
 class ForgotPasswordController extends Controller
@@ -28,12 +28,12 @@ class ForgotPasswordController extends Controller
             'email' => 'required|email',
         ]);
 
-        //Verificar si el correo electronico existe
+        //Check if the email exists
         if (User::where(["email" => $request->email])->exists()) {
 
-            $token = Str::random(64); // Generamos un token
+            $token = Str::random(64); // We generate a token
 
-            // Registramos el token a la tabla password_resets
+            // Register the token to the password_resets table
             DB::table('password_resets')->insert([
                 'email' => $request->email,
                 'token' => $token,
@@ -41,7 +41,7 @@ class ForgotPasswordController extends Controller
             ]);
 
             /*
-            Si existe el usuario debera enviar un correo electronico para reseteo de la contraseña
+           If the user exists, they must send an email to reset the password
             */
             $data = ['email' => $request['email'], 'token' => $token];
             $user['to'] = $request['email'];
@@ -58,7 +58,7 @@ class ForgotPasswordController extends Controller
 
         } else {
 
-            // Devolucion de respuesta error
+            // Return response error
             return response()->json([
                 "status" => 0,
                 "msg" => "El correo electrónico no se encuentra registrado"
@@ -75,8 +75,7 @@ class ForgotPasswordController extends Controller
         ]);
 
         /*
-        Verificamos si el correo electronico y token generado se encuentre en la tablas password resets
-        ante de realizar el cambio de contraseña.
+       We check if the generated email and token are in the password resets tables before making the password change.
         */
         $token = DB::table('password_resets')->where([
             'email' => $request->email,
@@ -84,8 +83,8 @@ class ForgotPasswordController extends Controller
         ])->first();
 
         /* 
-        Si no existe el token no podra realizar la acción
-        de cambiar la contraseña.
+       If the token does not exist, it will not be able to perform the action
+         to change the password.
         */
         if (!$token) {
             return response()->json([
@@ -94,19 +93,19 @@ class ForgotPasswordController extends Controller
             ], 404);
         } else {
 
-            //Si existe el token verificamos si aún sigue disponible, ya que la duración es de 15 minutos
-            $date_current_time = Carbon::now(); //Obtener la fecha y  la hora actual
+           //If the token exists, we check if it is still available, since the duration is 15 minutes
+            $date_current_time = Carbon::now(); // Get the current date and time
 
-            //Obtener el tiempo transcurrido al haber creado el token
+            //Get the time elapsed since the token was created
             $time_elapsed = $date_current_time->diff($token->created_at)->format("%H:%i:%s");
 
-            // Vida del token 15 minutos
+            // Token life 15 minutes
             if ($time_elapsed <= "00:15:00") {
 
-                //Actualizamos la contraseña del usuario
+                //Update the user's password
                 User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
 
-                //Eliminamos el token generado asociado con el correo
+                //We remove the generated token associated with the mail
                 DB::table('password_resets')->where(['email' => $request->email])->delete();
 
                 return response()->json([
@@ -115,7 +114,7 @@ class ForgotPasswordController extends Controller
                 ]);
 
             } else {
-                // Devolucion de respuesta error
+                // Return response error
                 return response()->json([
                     "status" => 0,
                     "created_at" => $time_elapsed,

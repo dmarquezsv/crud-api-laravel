@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Api\V1\Admin\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-//Se añadio el modelo productos
+// Added the product model
 use App\Models\Product;
 
 class ProductController extends Controller
-{
+{   
+   // Create a product
     public function createProduct(Request $request)
     {
 
-        //Validar los datos del usuario
+        //Validate the user data
         $request->validate([
             'sku' => 'required|unique:products',
             'name' => 'required',
@@ -23,7 +24,7 @@ class ProductController extends Controller
             'img' => 'required',
         ]);
 
-        // Obtener el id del usuario logueado
+        // Get the id of the logged in user
         $user_id = auth()->user()->id;
 
         $products = new Product();
@@ -36,7 +37,7 @@ class ProductController extends Controller
         $products->img = $request->img;
         $products->save();
 
-        // Devolucion de respuesta
+        // Return response
         return response()->json([
             "status" => 1,
             "msg" => "¡Producto creado exitosamente!"
@@ -44,6 +45,7 @@ class ProductController extends Controller
 
     }
 
+    // List the products
     public function listProduct()
     {
         $products = Product::all();
@@ -55,6 +57,7 @@ class ProductController extends Controller
         ]);
     }
 
+    // Display a product by ID
     public function showProduct($id)
     {
         if (Product::where(["id" => $id])->exists()) {
@@ -76,29 +79,8 @@ class ProductController extends Controller
         }
     }
 
-    public function searchProduct(Request $request)
-    {
-        // Consulta para buscar el producto mediante sku o nombre identificando Sensible a mayúsculas y minúsculas
-        //$product = Product::where(['sku', 'LIKE', '%' . $request->search . '%'])->get();
-        /*
-        $product = Product::orWhere([
-            "name",
-            "like",
-             '%' . $request->search . '%'
-        ])->get();
-
-        if ($product) {
-            // Devolucion de respuesta
-            return response()->json([
-                "status" => 1,
-                "msg" => "Listado de productos",
-                "data" => $product
-            ]);
-
-        }
-        */
-    }
-
+  
+   // Update a product by ID
     public function updateProduct(Request $request, $id)
     {
         if (Product::where(["id" => $id])->exists()) {
@@ -112,17 +94,17 @@ class ProductController extends Controller
             $product->description = isset($request->description) ? $request->description : $product->description;
             $product->img = isset($request->img) ? $request->img : $product->img;
 
-            // actualizar la información
+          // update the information
             $product->save();
 
-            // Devolucion de respuesta
+            // Return response
             return response()->json([
                 "status" => 1,
                 "msg" => "Producto Actualizado ID: " . $id
             ]);
 
         } else {
-            // Devolucion de respuesta error
+           // Return response
             return response()->json([
                 "status" => 0,
                 "msg" => "No se encontro el ID: " . $id
@@ -130,12 +112,11 @@ class ProductController extends Controller
         }
     }
 
-
+    // Delete the product
     public function deleteProduct(Request $request, $id)
     {
         /* 
-        Si existe el usuario se eliminara caso contrario 
-        devolvera una respuesta de error
+        If the user exists it is deleted otherwise it returned an error response
         */
         if (Product::where(["id" => $id])->exists()) {
 
@@ -146,7 +127,7 @@ class ProductController extends Controller
                 "msg" => "Producto eliminado ID: " . $id
             ]);
         } {
-            // Devolucion de respuesta error
+            // Return response error
             return response()->json([
                 "status" => 0,
                 "msg" => "No se encontro el ID: " . $id

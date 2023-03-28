@@ -5,19 +5,19 @@ namespace App\Http\Controllers\Api\V1\Admin\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-// Se añadio el modelo de usuario
+// Added the user model
 use App\Models\User;
 
-// Metodo a incriptar 
+// Method to encrypt
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
 
-    // Registrar usuario
+    // Register user
     public function register(Request $request)
     {
-        //Validar los datos del usuario
+        //Validate the user data
         $request->validate([
             'name' => 'required',
             'phone' => 'required|numeric|digits:8',
@@ -28,18 +28,18 @@ class UserController extends Controller
             'password' => 'required|confirmed',
         ]);
 
-        //Registrar el usuario a la tabla
+        //Register the user to the table
         $user = new User();
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->birthdate = $request->birthdate;
         $user->username = $request->username;
         $user->email = $request->email;
-        $user->password = Hash::make($request->password); // Incriptación
-        // Guardar la información
+        $user->password = Hash::make($request->password); // Encryption
+        // Save the information
         $user->save();
 
-        // Devolucion de respuesta
+        // Return response
         return response()->json([
             "status" => 1,
             "msg" => "Usuario creado exitosamente!"
@@ -47,7 +47,7 @@ class UserController extends Controller
 
     }
 
-    // Mostrar los usuarios registrados
+    // Show registered users
     public function listUsers()
     {
         $users = User::all();
@@ -59,13 +59,10 @@ class UserController extends Controller
         ]);
     }
 
-    // Actualizar los usuarios registrados
+    // Update registered users
     public function updateUser(Request $request, $id)
     {
-        /* 
-        Si existe el usuario se actualizaria caso contrario 
-        devolvera una respuesta de error
-        */
+        /* If the user exists, update it otherwise return an error response */
         if (User::where(["id" => $id])->exists()) {
 
             $user = User::find($id);
@@ -75,17 +72,17 @@ class UserController extends Controller
             $user->username = isset($request->username) ? $request->username : $user->username;
             $user->email = isset($request->email) ? $request->email : $user->email;
             $user->password = isset($request->password) ? Hash::make($request->password) : $user->password; // Incriptación
-            // actualizar la información
+           // update the information
             $user->save();
 
-            // Devolucion de respuesta
+            // Return response
             return response()->json([
                 "status" => 1,
                 "msg" => "Usuario Actualizado ID: " . $id
             ]);
 
         } else {
-            // Devolucion de respuesta error
+            // Return response error
             return response()->json([
                 "status" => 0,
                 "msg" => "No se encontro el ID: " . $id
@@ -93,13 +90,10 @@ class UserController extends Controller
         }
     }
 
-    // Eliminar un usuario
+    // Delete a user
     public function deleteUser(Request $request, $id)
     {
-        /* 
-        Si existe el usuario se eliminara caso contrario 
-        devolvera una respuesta de error
-        */
+       /* If the user exists, delete it otherwise return an error response */
         if (User::where(["id" => $id])->exists()) {
 
             $user = User::where(["id" => $id])->first();
@@ -109,7 +103,7 @@ class UserController extends Controller
                 "msg" => "Usuario eliminado ID: " . $id
             ]);
         } {
-            // Devolucion de respuesta error
+            // Return response error
             return response()->json([
                 "status" => 0,
                 "msg" => "No se encontro el ID: " . $id
@@ -120,24 +114,24 @@ class UserController extends Controller
     public function login(Request $request)
     {
 
-        // Validar los campos
+       // Validate the fields
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        //Consultamos si el correo electronico ingresado existe
+        //Check if the email entered exists
         $user = User::where("email", "=", $request->email)->first();
 
         /*
-        Si existe el correo electronico procedemos a comparar contraseña ingresada 
-        Si no el usuario es invalido o contrasela es incorrecto
-        */
+         If the email exists, we proceed to compare the password entered
+         Otherwise the username is invalid or the password is incorrect
+         */
         if (isset($user->id)) {
             if (Hash::check($request->password, $user->password)) {
-                //Creamos el token que SACTUM nos ofrece
+               //We create the token that SANCTUM offers us
                 $token = $user->createToken("auth_token")->plainTextToken;
-                // Si todo se encuentra en orden se genera el token
+                /// If everything is in order, the token is generated
                 return response()->json([
                     "status" => 1,
                     "msg" => "¡Usuario logueado existosamte!",
@@ -145,14 +139,14 @@ class UserController extends Controller
                 ]);
 
             } else {
-                // Devolucion de respuesta contraseña incorrecto
+                // Return incorrect password response
                 return response()->json([
                     "status" => 0,
                     "msg" => "Correo electrónico o contraseña es incorrecto"
                 ], 404);
             }
         } else {
-            // Devolucion de respuesta del usuario no existe
+            // Return user response does not exist
             return response()->json([
                 "status" => 0,
                 "msg" => "Correo electrónico o contraseña es incorrecto"
@@ -161,7 +155,7 @@ class UserController extends Controller
 
     }
 
-    //Usuario autenticado
+    //Authenticated user
     public function userProfile()
     {
         return response()->json([
@@ -171,7 +165,7 @@ class UserController extends Controller
         ]);
     }
 
-    // Cerrar la sesión
+    // Close the session
     public function logout()
     {
         auth()->user()->tokens()->delete(); // Eliminar el token del usuario
